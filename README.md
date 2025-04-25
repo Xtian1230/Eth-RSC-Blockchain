@@ -52,6 +52,6 @@ REACT_APP_RPC=http://127.0.0.1:8545/
 ```
 Run the app
 ```js
-npm strat
+npm start
 ```
 The app gets hosted by default at port 3000.
