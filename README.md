@@ -9,3 +9,9 @@ To:
 Seed Provider → Producer → Miller → Distributor → Delivery Hub → Retailer → Consumer
 
 Original Repository: https://github.com/rishav4101/eth-supplychain-dapp?tab=readme-ov-file
+
+Installation and Setup
+Prerequisites : npm, git, docker(optional)
+
+Clone the repository
+```https://github.com/Xtian1230/Eth-RSC-Blockchain.git
