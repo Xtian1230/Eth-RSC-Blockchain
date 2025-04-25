@@ -1,10 +1,11 @@
 # Eth-RSC-Blockchain
 Description
 
-This is a blockchain repository for supply chain made by team akatsuki modified to accommodate for Philippine Rice Supply Chain. As of now the front end of the system are the only ones that are modified from the original Manufacturer, Third Party, Delivery Hub, and Customer to Producer, Distributor, Delivery Hub and Retailer. Additionally added Seed Provider, Miller, And Consumer. Currently Producer, Distributor, Delivery Hub and Retailer are the only ones working as it already has a complete smart contract while Seed Provider, Miller, And Consumer are only in Front-end. This repository also did not have a connected database as it only stores locally.
+This is a blockchain repository for supply chain made by team akatsuki modified to accommodate for Philippine Rice Supply Chain. As of now the front end of the system are the only ones that are modified from the original Manufacturer, Third Party, Delivery Hub, and Customer to Producer, Distributor, Delivery Hub and Retailer. Additionally added Seed Provider, Miller, And Consumer. Currently Producer, Distributor, Delivery Hub and Retailer are the only ones working as it already has a complete smart contract while Seed Provider, Miller, And Consumer are only in Front-end.
 
 From:
 Manufacturer → Third Party → Delivery Hub → Customer
+
 To:
 Seed Provider → Producer → Miller → Distributor → Delivery Hub → Retailer → Consumer
 
@@ -55,3 +56,19 @@ Run the app
 npm start
 ```
 The app gets hosted by default at port 3000.
+
+
+License
+This project uses an MIT license.
+
+Documentation to help with Solidity
+https://docs.soliditylang.org/en/v0.8.4/
+
+Documentation to help with React
+https://reactjs.org/docs/getting-started.html
+
+Documentation to help with Truffle
+https://www.trufflesuite.com/docs/truffle/reference/configuration
+
+Documentation to help with Ganache-cli
+https://www.trufflesuite.com/docs/ganache/overview
