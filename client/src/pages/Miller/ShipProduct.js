@@ -23,11 +23,11 @@ export default function ShipManufacture(props) {
   const [allSoldProducts, setAllSoldProducts] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const navItem = [
-    ["Add Product", "/manufacturer/manufacture"],
-    ["Ship Product", "/manufacturer/ship"],
-    ["All Products", "/manufacturer/allManufacture"],
-    ["Receive Seeds", "/manufacturer/ReceiveSeed"],
-    ["Buy Seeds", "/manufacturer/BuySeeds"],
+    ["Add Product", "/Miller/miller"],
+    ["Ship Product", "/Miller/ShipProduct"],
+    ["Receive Products", "/Miller/ReceiveProduct"],
+    ["Buy Products", "/Miller/BuyProduct"],
+    ["All Products", "/Miller/AllProduct"],
   ];
   const [alertText, setalertText] = React.useState("");
   React.useEffect(() => {
@@ -110,7 +110,7 @@ export default function ShipManufacture(props) {
 
   return (
     <div className={classes.pageWrap}>
-      <Navbar pageTitle={"Producer"} navItems={navItem}>
+      <Navbar pageTitle={"Miller"} navItems={navItem}>
         {loading ? (
           <Loader />
         ) : (

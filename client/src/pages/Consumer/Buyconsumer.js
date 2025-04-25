@@ -15,18 +15,18 @@ import ProductModal from "../../components/Modal";
 import clsx from "clsx";
 import Loader from "../../components/Loader";
 
-export default function ShipDeliveryHub(props) {
+export default function PurchaseCustomer(props) {
   const classes = useStyles();
   const supplyChainContract = props.supplyChainContract;
   const { roles } = useRole();
   const [count, setCount] = React.useState(0);
-  const [allSoldProducts, setAllSoldProducts] = React.useState([]);
+  const [allProducts, setAllProducts] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const navItem = [
-    ["Receive Product", "/DeliveryHub/receive"],
-    ["Ship Product", "/DeliveryHub/ship"],
+    ["Purchase Product", "/Consumer/Buyconsumer"],
+    ["Receive Product", "/Consumer/ReceiveConsumer"],
+    ["Your Products", "/Consumer/AllReceivedConsumer"],
   ];
-  const [alertText, setalertText] = React.useState("");
   React.useEffect(() => {
     (async () => {
       setLoading(true);
@@ -41,7 +41,7 @@ export default function ShipDeliveryHub(props) {
           .fetchProductState(i)
           .call();
 
-        if (prodState === "6") {
+        if (prodState === "3") {
           const prodData = [];
           const a = await supplyChainContract.methods
             .fetchProductPart1(i, "product", 0)
@@ -58,30 +58,10 @@ export default function ShipDeliveryHub(props) {
           arr.push(prodData);
         }
       }
-      setAllSoldProducts(arr);
+      setAllProducts(arr);
       setLoading(false);
     })();
   }, [count]);
-
-  const handleSetTxhash = async (id, hash) => {
-    await supplyChainContract.methods
-      .setTransactionHash(id, hash)
-      .send({ from: roles.manufacturer, gas: 900000 });
-  };
-
-  const handleShipButton = async (id) => {
-    try {
-      await supplyChainContract.methods
-        .shipByDeliveryHub(id)
-        .send({ from: roles.deliveryhub, gas: 1000000 })
-        .on("transactionHash", function (hash) {
-          handleSetTxhash(id, hash);
-        });
-      setCount(0);
-    } catch {
-      setalertText("You are not the owner of the Product");
-    }
-  };
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -104,10 +84,26 @@ export default function ShipDeliveryHub(props) {
     setOpen(true);
   };
 
+  const handleBuyButton = async (id) => {
+    await supplyChainContract.methods
+      .purchaseByCustomer(id)
+      .send({ from: roles.customer, gas: 1000000 })
+      .on("transactionHash", function (hash) {
+        handleSetTxhash(id, hash);
+      });
+    setCount(0);
+  };
+
+  const handleSetTxhash = async (id, hash) => {
+    await supplyChainContract.methods
+      .setTransactionHash(id, hash)
+      .send({ from: roles.manufacturer, gas: 900000 });
+  };
+
   return (
     <>
       <div classname={classes.pageWrap}>
-        <Navbar pageTitle={"Delivery Hub"} navItems={navItem}>
+        <Navbar pageTitle={"Retailer"} navItems={navItem}>
           {loading ? (
             <Loader />
           ) : (
@@ -117,17 +113,13 @@ export default function ShipDeliveryHub(props) {
                 open={open}
                 handleClose={handleClose}
               />
-              <h1 className={classes.pageHeading}>Products To be Shipped</h1>
+
+              <h1 className={classes.pageHeading}>Purchase Products</h1>
               <h3 className={classes.tableCount}>
-                Total : {allSoldProducts.length}
+                Total : {allProducts.length}
               </h3>
 
               <div>
-                <p>
-                  <b style={{ color: "red" }}>
-                    {alertText.length !== 0 ? alertText : ""}
-                  </b>
-                </p>
                 <Paper className={classes.TableRoot}>
                   <TableContainer className={classes.TableContainer}>
                     <Table stickyHeader aria-label="sticky table">
@@ -173,13 +165,13 @@ export default function ShipDeliveryHub(props) {
                             className={clsx(classes.TableHead)}
                             align="center"
                           >
-                            Ship
+                            Buy
                           </TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {allSoldProducts.length !== 0 ? (
-                          allSoldProducts
+                        {allProducts.length !== 0 ? (
+                          allProducts
                             .slice(
                               page * rowsPerPage,
                               page * rowsPerPage + rowsPerPage
@@ -251,10 +243,10 @@ export default function ShipDeliveryHub(props) {
                                         variant="contained"
                                         color="primary"
                                         onClick={() =>
-                                          handleShipButton(prod[0][0])
+                                          handleBuyButton(prod[0][0])
                                         }
                                       >
-                                        SHIP
+                                        BUY
                                       </Button>
                                     </TableCell>
                                   </TableRow>
@@ -270,7 +262,7 @@ export default function ShipDeliveryHub(props) {
                   <TablePagination
                     rowsPerPageOptions={[10, 25, 100]}
                     component="div"
-                    count={allSoldProducts.length}
+                    count={allProducts.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onChangePage={handleChangePage}

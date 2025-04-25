@@ -33,7 +33,6 @@ export default function ShipThirdParty(props) {
       setLoading(true);
       const cnt = await supplyChainContract.methods.fetchProductCount().call();
       setCount(cnt);
-      
     })();
 
     (async () => {
@@ -72,18 +71,17 @@ export default function ShipThirdParty(props) {
   };
 
   const handleShipButton = async (id) => {
-    try{
+    try {
       await supplyChainContract.methods
-      .shipByThirdParty(id)
-      .send({ from: roles.thirdparty, gas: 1000000 })
-      .on("transactionHash", function (hash) {
-        handleSetTxhash(id, hash);
-      });
-     setCount(0);
-    }catch{
-      setalertText("You are not the owner of the Product")
+        .shipByThirdParty(id)
+        .send({ from: roles.thirdparty, gas: 1000000 })
+        .on("transactionHash", function (hash) {
+          handleSetTxhash(id, hash);
+        });
+      setCount(0);
+    } catch {
+      setalertText("You are not the owner of the Product");
     }
-   
   };
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -106,11 +104,11 @@ export default function ShipThirdParty(props) {
     await setModalData(prod);
     setOpen(true);
   };
-  
+
   return (
     <>
       <div classname={classes.pageWrap}>
-        <Navbar pageTitle={"Third Party"} navItems={navItem}>
+        <Navbar pageTitle={"Distributor"} navItems={navItem}>
           {loading ? (
             <Loader />
           ) : (
@@ -126,7 +124,11 @@ export default function ShipThirdParty(props) {
               </h3>
 
               <div>
-              <p><b style={{ color: "red" }}>{alertText.length !== 0 ? alertText : ""}</b></p>
+                <p>
+                  <b style={{ color: "red" }}>
+                    {alertText.length !== 0 ? alertText : ""}
+                  </b>
+                </p>
                 <Paper className={classes.TableRoot}>
                   <TableContainer className={classes.TableContainer}>
                     <Table stickyHeader aria-label="sticky table">
@@ -145,13 +147,13 @@ export default function ShipThirdParty(props) {
                             className={classes.TableHead}
                             align="center"
                           >
-                            Manufacturer
+                            Producer
                           </TableCell>
                           <TableCell
                             className={classes.TableHead}
                             align="center"
                           >
-                            Manufacture Date
+                            Produce Date
                           </TableCell>
                           <TableCell
                             className={classes.TableHead}

@@ -11,7 +11,7 @@ export default function ProductModal({
   open,
   handleClose,
   handleReceiveButton,
-  aText
+  aText,
 }) {
   const [rdata, setRdata] = React.useState({
     long: "",
@@ -62,17 +62,17 @@ export default function ProductModal({
                   </div>
 
                   <div className={classes.dRow}>
-                    <div className={classes.dCol1}>Manufacturer:</div>{" "}
+                    <div className={classes.dCol1}>Producer:</div>{" "}
                     <div className={classes.dCol2}>{prod[0][3]}</div>
                   </div>
 
                   <div className={classes.dRow}>
-                    <div className={classes.dCol1}>Name of Manufacturer:</div>{" "}
+                    <div className={classes.dCol1}>Name of Producer:</div>{" "}
                     <div className={classes.dCol2}> {prod[0][4]}</div>
                   </div>
 
                   <div className={classes.dRow}>
-                    <div className={classes.dCol1}>Manufactured date:</div>{" "}
+                    <div className={classes.dCol1}>Produced date:</div>{" "}
                     <div className={classes.dCol2}>
                       {new Date(parseInt(prod[1][0] * 1000)).toDateString() +
                         " " +
@@ -81,20 +81,16 @@ export default function ProductModal({
                   </div>
 
                   <div className={classes.dRow}>
-                    <div className={classes.dCol1}>
-                      Details of Manufacturer:
-                    </div>{" "}
+                    <div className={classes.dCol1}>Details of Producer:</div>{" "}
                     <div className={classes.dCol2}> {prod[0][5]}</div>
                   </div>
 
                   <div className={classes.dRow}>
-                    <div className={classes.dCol1}>
-                      Longitude of Manufature:{" "}
-                    </div>{" "}
+                    <div className={classes.dCol1}>Longitude of Producer: </div>{" "}
                     <div className={classes.dCol2}>{prod[0][6]}</div>
                   </div>
                   <div className={classes.dRow}>
-                    <div className={classes.dCol1}>Latitude of Manufature:</div>{" "}
+                    <div className={classes.dCol1}>Latitude of Producer:</div>{" "}
                     <div className={classes.dCol2}>{prod[0][7]}</div>
                   </div>
 
@@ -121,15 +117,15 @@ export default function ProductModal({
                     <div className={classes.dCol2}>{prod[1][5]}</div>
                   </div>
                   <div className={classes.dRow}>
-                    <div className={classes.dCol1}>Third Party Address: </div>{" "}
+                    <div className={classes.dCol1}>Distributer Address: </div>{" "}
                     <div className={classes.dCol2}>{prod[1][6]}</div>
                   </div>
                   <div className={classes.dRow}>
-                    <div className={classes.dCol1}>Third Party Longitude: </div>{" "}
+                    <div className={classes.dCol1}>Distributer Longitude: </div>{" "}
                     <div className={classes.dCol2}>{prod[1][7]}</div>
                   </div>
                   <div className={classes.dRow}>
-                    <div className={classes.dCol1}>Third Party Latitude: </div>{" "}
+                    <div className={classes.dCol1}>Distributer Latitude: </div>{" "}
                     <div className={classes.dCol2}>{prod[2][0]}</div>
                   </div>
 
@@ -148,7 +144,7 @@ export default function ProductModal({
                     <div className={classes.dCol2}> {prod[2][3]}</div>
                   </div>
                   <div className={classes.dRow}>
-                    <div className={classes.dCol1}>Customer Address: </div>{" "}
+                    <div className={classes.dCol1}>Retailer Address: </div>{" "}
                     <div className={classes.dCol2}>{prod[2][4]}</div>
                   </div>
                   <div className={classes.dRow}>
@@ -207,7 +203,11 @@ export default function ProductModal({
                         >
                           Recieve
                         </Button>
-                        <p><b style={{ color: "red" }}>{aText.length !== 0 ? aText : ""}</b></p>
+                        <p>
+                          <b style={{ color: "red" }}>
+                            {aText.length !== 0 ? aText : ""}
+                          </b>
+                        </p>
                       </>
                     ) : (
                       <> </>

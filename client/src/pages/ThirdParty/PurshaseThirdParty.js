@@ -32,7 +32,6 @@ export default function PurchaseThirdParty(props) {
       setLoading(true);
       const cnt = await supplyChainContract.methods.fetchProductCount().call();
       setCount(cnt);
-    
     })();
 
     (async () => {
@@ -104,7 +103,7 @@ export default function PurchaseThirdParty(props) {
 
   return (
     <div classname={classes.pageWrap}>
-      <Navbar pageTitle={"Third Party"} navItems={navItem}>
+      <Navbar pageTitle={"Distributor"} navItems={navItem}>
         {loading ? (
           <Loader />
         ) : (
@@ -131,10 +130,10 @@ export default function PurchaseThirdParty(props) {
                           Product Code
                         </TableCell>
                         <TableCell className={classes.TableHead} align="center">
-                          Manufacturer
+                          Producer
                         </TableCell>
                         <TableCell className={classes.TableHead} align="center">
-                          Manufacture Date
+                          Produce Date
                         </TableCell>
                         <TableCell className={classes.TableHead} align="center">
                           Product Name

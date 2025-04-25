@@ -15,21 +15,20 @@ import ProductModal from "../../components/Modal";
 import clsx from "clsx";
 import Loader from "../../components/Loader";
 
-export default function ShipManufacture(props) {
+export default function PurchaseThirdParty(props) {
+  const classes = useStyles();
   const supplyChainContract = props.supplyChainContract;
   const { roles } = useRole();
-  const classes = useStyles();
   const [count, setCount] = React.useState(0);
-  const [allSoldProducts, setAllSoldProducts] = React.useState([]);
+  const [allProducts, setAllProducts] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const navItem = [
-    ["Add Product", "/manufacturer/manufacture"],
-    ["Ship Product", "/manufacturer/ship"],
-    ["All Products", "/manufacturer/allManufacture"],
-    ["Receive Seeds", "/manufacturer/ReceiveSeed"],
-    ["Buy Seeds", "/manufacturer/BuySeeds"],
+    ["Add Product", "/Miller/miller"],
+    ["Ship Product", "/Miller/ShipProduct"],
+    ["Receive Products", "/Miller/ReceiveProduct"],
+    ["Buy Products", "/Miller/BuyProduct"],
+    ["All Products", "/Miller/AllProduct"],
   ];
-  const [alertText, setalertText] = React.useState("");
   React.useEffect(() => {
     (async () => {
       setLoading(true);
@@ -44,7 +43,7 @@ export default function ShipManufacture(props) {
           .fetchProductState(i)
           .call();
 
-        if (prodState === "1") {
+        if (prodState === "0") {
           const prodData = [];
           const a = await supplyChainContract.methods
             .fetchProductPart1(i, "product", 0)
@@ -61,7 +60,7 @@ export default function ShipManufacture(props) {
           arr.push(prodData);
         }
       }
-      setAllSoldProducts(arr);
+      setAllProducts(arr);
       setLoading(false);
     })();
   }, [count]);
@@ -94,23 +93,19 @@ export default function ShipManufacture(props) {
       .send({ from: roles.manufacturer, gas: 900000 });
   };
 
-  const handleShipButton = async (id) => {
-    try {
-      await supplyChainContract.methods
-        .shipToThirdParty(id)
-        .send({ from: roles.manufacturer, gas: 1000000 })
-        .on("transactionHash", function (hash) {
-          handleSetTxhash(id, hash);
-        });
-      setCount(0);
-    } catch {
-      setalertText("You are not the owner of the Product");
-    }
+  const handleBuyButton = async (id) => {
+    await supplyChainContract.methods
+      .purchaseByThirdParty(id)
+      .send({ from: roles.thirdparty, gas: 1000000 })
+      .on("transactionHash", function (hash) {
+        handleSetTxhash(id, hash);
+      });
+    setCount(0);
   };
 
   return (
-    <div className={classes.pageWrap}>
-      <Navbar pageTitle={"Producer"} navItems={navItem}>
+    <div classname={classes.pageWrap}>
+      <Navbar pageTitle={"Miller"} navItems={navItem}>
         {loading ? (
           <Loader />
         ) : (
@@ -120,17 +115,11 @@ export default function ShipManufacture(props) {
               open={open}
               handleClose={handleClose}
             />
-            <h1 className={classes.pageHeading}>Products To be Shipped</h1>
-            <h3 className={classes.tableCount}>
-              Total : {allSoldProducts.length}
-            </h3>
+
+            <h1 className={classes.pageHeading}>All Products</h1>
+            <h3 className={classes.tableCount}>Total : {allProducts.length}</h3>
 
             <div>
-              <p>
-                <b style={{ color: "red" }}>
-                  {alertText.length !== 0 ? alertText : ""}
-                </b>
-              </p>
               <Paper className={classes.TableRoot}>
                 <TableContainer className={classes.TableContainer}>
                   <Table stickyHeader aria-label="sticky table">
@@ -164,13 +153,13 @@ export default function ShipManufacture(props) {
                           className={clsx(classes.TableHead)}
                           align="center"
                         >
-                          Ship
+                          Buy
                         </TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {allSoldProducts.length !== 0 ? (
-                        allSoldProducts
+                      {allProducts.length !== 0 ? (
+                        allProducts
                           .slice(
                             page * rowsPerPage,
                             page * rowsPerPage + rowsPerPage
@@ -240,10 +229,10 @@ export default function ShipManufacture(props) {
                                       variant="contained"
                                       color="primary"
                                       onClick={() =>
-                                        handleShipButton(prod[0][0])
+                                        handleBuyButton(prod[0][0])
                                       }
                                     >
-                                      SHIP
+                                      BUY
                                     </Button>
                                   </TableCell>
                                 </TableRow>
@@ -259,7 +248,7 @@ export default function ShipManufacture(props) {
                 <TablePagination
                   rowsPerPageOptions={[10, 25, 100]}
                   component="div"
-                  count={allSoldProducts.length}
+                  count={allProducts.length}
                   rowsPerPage={rowsPerPage}
                   page={page}
                   onChangePage={handleChangePage}
@@ -268,34 +257,31 @@ export default function ShipManufacture(props) {
               </Paper>
             </div>
 
-            {/* {allSoldProducts.length !== 0 ? (
-          allSoldProducts.map((prod) => (
-            <>
-              <div>
-                <p>Universal ID : {prod[0][0]}</p>
-                <p>SKU : {prod[0][1]}</p>
-                <p>Owner : {prod[0][2]}</p>
-                <p>Manufacturer : {prod[0][3]}</p>
-                <p>Name of Manufacturer : {prod[0][4]}</p>
-                <p>Details of Manufacturer : {prod[0][5]}</p>
-                <p>Longitude of Manufature : {prod[0][6]}</p>
-                <p>Latitude of Manufature : {prod[0][7]}</p>
+            {/* {allProducts.length !== 0 ? (allProducts.map((prod) => (
+                <>
+                    <div>
+                    <p>Universal ID : {prod[0][0]}</p>
+                    <p>SKU : {prod[0][1]}</p>
+                    <p>Owner : {prod[0][2]}</p>
+                    <p>Manufacturer : {prod[0][3]}</p>
+                    <p>Name of Manufacturer : {prod[0][4]}</p>
+                    <p>Details of Manufacturer : {prod[0][5]}</p>
+                    <p>Longitude of Manufature : {prod[0][6]}</p>
+                    <p>Latitude of Manufature : {prod[0][7]}</p>
 
-                <p>Manufactured date : {prod[1][0]}</p>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  onClick={() => handleShipButton(prod[0][0])}
-                >
-                  SHIP
-                </Button>
-              </div>
-            </>
-          ))
-        ) : (
-          <> </>
-        )} */}
+                    <p>Manufactured date : {prod[1][0]}</p>
+                    <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                onClick={() => handleBuyButton(prod[0][0])}
+            >
+                BUY
+            </Button>
+                    </div>
+                    
+                </>
+          ))) : <> </>} */}
           </>
         )}
       </Navbar>

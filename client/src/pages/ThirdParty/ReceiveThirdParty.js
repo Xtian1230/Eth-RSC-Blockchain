@@ -35,7 +35,6 @@ export default function ReceiveThirdParty(props) {
       setLoading(true);
       const cnt = await supplyChainContract.methods.fetchProductCount().call();
       setCount(cnt);
-     
     })();
 
     (async () => {
@@ -68,20 +67,19 @@ export default function ReceiveThirdParty(props) {
   }, [count]);
 
   const handleReceiveButton = async (id, long, lat) => {
-    try{
+    try {
       await supplyChainContract.methods
-      .receiveByThirdParty(parseInt(id), long, lat)
-      .send({ from: roles.thirdparty, gas: 1000000 })
-      .on("transactionHash", function (hash) {
-        handleSetTxhash(id, hash);
-      });
-    
-    setCount(0);
-    setOpen(false);
-    }catch{
+        .receiveByThirdParty(parseInt(id), long, lat)
+        .send({ from: roles.thirdparty, gas: 1000000 })
+        .on("transactionHash", function (hash) {
+          handleSetTxhash(id, hash);
+        });
+
+      setCount(0);
+      setOpen(false);
+    } catch {
       setalertText("You are not the owner of the product");
     }
-    
   };
 
   const handleSetTxhash = async (id, hash) => {
@@ -106,13 +104,13 @@ export default function ReceiveThirdParty(props) {
 
   const handleClick = async (prod) => {
     await setModalData(prod);
-    
+
     setOpen(true);
   };
 
   return (
     <div classname={classes.pageWrap}>
-      <Navbar pageTitle={"Third Party"} navItems={navItem}>
+      <Navbar pageTitle={"Distributor"} navItems={navItem}>
         {loading ? (
           <Loader />
         ) : (
@@ -122,7 +120,7 @@ export default function ReceiveThirdParty(props) {
               open={open}
               handleClose={handleClose}
               handleReceiveButton={handleReceiveButton}
-              aText = {alertText}
+              aText={alertText}
             />
 
             <h1 className={classes.pageHeading}>Products to be Received</h1>
@@ -143,10 +141,10 @@ export default function ReceiveThirdParty(props) {
                           Product Code
                         </TableCell>
                         <TableCell className={classes.TableHead} align="center">
-                          Manufacturer
+                          Producer
                         </TableCell>
                         <TableCell className={classes.TableHead} align="center">
-                          Manufacture Date
+                          Produce Date
                         </TableCell>
                         <TableCell className={classes.TableHead} align="center">
                           Product Name

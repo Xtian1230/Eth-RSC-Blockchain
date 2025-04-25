@@ -67,19 +67,18 @@ export default function ReceiveCustomer(props) {
   }, [count]);
 
   const handleReceiveButton = async (id) => {
-    try{
+    try {
       await supplyChainContract.methods
-      .receiveByCustomer(parseInt(id))
-      .send({ from: roles.customer, gas: 1000000 })
-      .on("transactionHash", function (hash) {
-        handleSetTxhash(id, hash);
-      });
-    setCount(0);
-    setOpen(false);
-    }catch{
+        .receiveByCustomer(parseInt(id))
+        .send({ from: roles.customer, gas: 1000000 })
+        .on("transactionHash", function (hash) {
+          handleSetTxhash(id, hash);
+        });
+      setCount(0);
+      setOpen(false);
+    } catch {
       setalertText("You are not the owner of the Product");
     }
-    
   };
 
   const handleSetTxhash = async (id, hash) => {
@@ -109,7 +108,7 @@ export default function ReceiveCustomer(props) {
 
   return (
     <div classname={classes.pageWrap}>
-      <Navbar pageTitle={"Customer"} navItems={navItem}>
+      <Navbar pageTitle={"Retailer"} navItems={navItem}>
         {loading ? (
           <Loader />
         ) : (
@@ -140,10 +139,10 @@ export default function ReceiveCustomer(props) {
                           Product Code
                         </TableCell>
                         <TableCell className={classes.TableHead} align="center">
-                          Manufacturer
+                          Producer
                         </TableCell>
                         <TableCell className={classes.TableHead} align="center">
-                          Manufacture Date
+                          Produce Date
                         </TableCell>
                         <TableCell className={classes.TableHead} align="center">
                           Product Name
@@ -269,13 +268,13 @@ export default function ReceiveCustomer(props) {
                     <p>Universal ID : {prod[0][0]}</p>
                     <p>SKU : {prod[0][1]}</p>
                     <p>Owner : {prod[0][2]}</p>
-                    <p>Manufacturer : {prod[0][3]}</p>
-                    <p>Name of Manufacturer : {prod[0][4]}</p>
-                    <p>Details of Manufacturer : {prod[0][5]}</p>
-                    <p>Longitude of Manufature : {prod[0][6]}</p>
-                    <p>Latitude of Manufature : {prod[0][7]}</p>
+                    <p>Producer : {prod[0][3]}</p>
+                    <p>Name of Producer : {prod[0][4]}</p>
+                    <p>Details of Producer : {prod[0][5]}</p>
+                    <p>Longitude of Producer : {prod[0][6]}</p>
+                    <p>Latitude of Producer : {prod[0][7]}</p>
 
-                    <p>Manufactured date : {prod[1][0]}</p>
+                    <p>Produce date : {prod[1][0]}</p>
                     <Button
                 type="submit"
                 variant="contained"

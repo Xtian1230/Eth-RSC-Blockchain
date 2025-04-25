@@ -152,19 +152,19 @@ export default function Explorer(props) {
                           Owner : {productData[0][2]}
                         </div>
                         <div className={classes.ExplorerdRow}>
-                          Manufacturer : {productData[0][3]}
+                          Producer : {productData[0][3]}
                         </div>
                         <div className={classes.ExplorerdRow}>
-                          Name of Manufacturer : {productData[0][4]}
+                          Name of Producer : {productData[0][4]}
                         </div>
                         <div className={classes.ExplorerdRow}>
-                          Details of Manufacturer : {productData[0][5]}
+                          Details of Producer : {productData[0][5]}
                         </div>
                         <div className={classes.ExplorerdRow}>
-                          Longitude of Manufature : {productData[0][6]}
+                          Longitude of Producer : {productData[0][6]}
                         </div>
                         <div className={classes.ExplorerdRow}>
-                          Latitude of Manufature : {productData[0][7]}
+                          Latitude of Producer : {productData[0][7]}
                         </div>
                         <div className={classes.ExplorerdRow}>
                           Manufactured date : {productData[1][0]}
@@ -213,7 +213,7 @@ export default function Explorer(props) {
                             align="center"
                             className={classes.TableHead}
                           >
-                            Recipt
+                            Receipt
                           </TableCell>
                         </TableRow>
                       </TableHead>

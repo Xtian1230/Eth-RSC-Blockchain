@@ -14,11 +14,11 @@ export default function Manufacture(props) {
   const [loading, setLoading] = React.useState(false);
   const [fvalid, setfvalid] = React.useState(false);
   const navItem = [
-    ["Add Product", "/manufacturer/manufacture"],
-    ["Ship Product", "/manufacturer/ship"],
-    ["All Products", "/manufacturer/allManufacture"],
-    ["Receive Seeds", "/manufacturer/ReceiveSeed"],
-    ["Buy Seeds", "/manufacturer/BuySeeds"],
+    ["Add Product", "/Miller/miller"],
+    ["Ship Product", "/Miller/ShipProduct"],
+    ["Receive Products", "/Miller/ReceiveProduct"],
+    ["Buy Products", "/Miller/BuyProduct"],
+    ["All Products", "/Miller/AllProduct"],
   ];
   const [manuForm, setManuForm] = React.useState({
     id: 0,

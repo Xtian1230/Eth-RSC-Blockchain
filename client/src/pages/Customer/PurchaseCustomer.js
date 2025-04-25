@@ -103,7 +103,7 @@ export default function PurchaseCustomer(props) {
   return (
     <>
       <div classname={classes.pageWrap}>
-        <Navbar pageTitle={"Customer"} navItems={navItem}>
+        <Navbar pageTitle={"Retailer"} navItems={navItem}>
           {loading ? (
             <Loader />
           ) : (
@@ -138,13 +138,13 @@ export default function PurchaseCustomer(props) {
                             className={classes.TableHead}
                             align="center"
                           >
-                            Manufacturer
+                            Producer
                           </TableCell>
                           <TableCell
                             className={classes.TableHead}
                             align="center"
                           >
-                            Manufacture Date
+                            Produce Date
                           </TableCell>
                           <TableCell
                             className={classes.TableHead}

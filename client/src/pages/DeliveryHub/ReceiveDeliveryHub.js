@@ -72,19 +72,18 @@ export default function ReceiveDeliveryHub(props) {
   };
 
   const handleReceiveButton = async (id, long, lat) => {
-    try{
+    try {
       await supplyChainContract.methods
-      .receiveByDeliveryHub(parseInt(id), long, lat)
-      .send({ from: roles.deliveryhub, gas: 1000000 })
-      .on("transactionHash", function (hash) {
-        handleSetTxhash(id, hash);
-      });
-     setCount(0);
-     setOpen(false);
-    }catch{
+        .receiveByDeliveryHub(parseInt(id), long, lat)
+        .send({ from: roles.deliveryhub, gas: 1000000 })
+        .on("transactionHash", function (hash) {
+          handleSetTxhash(id, hash);
+        });
+      setCount(0);
+      setOpen(false);
+    } catch {
       setalertText("You are not the owner of the Product");
     }
-    
   };
 
   const [page, setPage] = React.useState(0);
@@ -103,7 +102,7 @@ export default function ReceiveDeliveryHub(props) {
 
   const handleClick = async (prod) => {
     await setModalData(prod);
-    
+
     setOpen(true);
   };
 
@@ -140,10 +139,10 @@ export default function ReceiveDeliveryHub(props) {
                           Product Code
                         </TableCell>
                         <TableCell className={classes.TableHead} align="center">
-                          Manufacturer
+                          Producer
                         </TableCell>
                         <TableCell className={classes.TableHead} align="center">
-                          Manufacture Date
+                          Produce Date
                         </TableCell>
                         <TableCell className={classes.TableHead} align="center">
                           Product Name

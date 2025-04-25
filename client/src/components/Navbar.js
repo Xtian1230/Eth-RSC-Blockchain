@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
-    backgroundColor: "#09126d",
+    backgroundColor: "#388E3C",
     color: "#fff",
   },
   drawerHeader: {
@@ -77,7 +77,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PersistentDrawerLeft({ pageTitle,navItems, children }) {
+export default function PersistentDrawerLeft({
+  pageTitle,
+  navItems,
+  children,
+}) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
@@ -98,6 +102,7 @@ export default function PersistentDrawerLeft({ pageTitle,navItems, children }) {
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
+        style={{ backgroundColor: "#388E3C" }} // 💚 AppBar color
       >
         <Toolbar>
           <IconButton
@@ -107,97 +112,122 @@ export default function PersistentDrawerLeft({ pageTitle,navItems, children }) {
             edge="start"
             className={clsx(classes.menuButton, open && classes.hide)}
           >
-            <MenuIcon />
+            <MenuIcon style={{ color: "#fff" }} /> {/* 💚 Icon color */}
           </IconButton>
           <Typography
             variant="h6"
             noWrap
-            style={{ display: "flex", alignItems: "center" }}
+            style={{ display: "flex", alignItems: "center", color: "#fff" }} // 💚 Text color
           >
             <img
               alt="."
               src="/logo.png"
               style={{ height: "45px", width: "auto" }}
             />
-            &nbsp;SupplyChain-Dapp
+            &nbsp;Rice Supply Chain
           </Typography>
         </Toolbar>
       </AppBar>
+
       <Drawer
         className={classes.drawer}
         variant="persistent"
         anchor="left"
         open={open}
-        classes={{
-          paper: classes.drawerPaper,
+        classes={{ paper: classes.drawerPaper }}
+        PaperProps={{
+          style: {
+            backgroundColor: "#C8E6C9", // optional: light green
+            color: "#000", // 🔲 Black text
+            textAlign: "center", // ⬅️ Centered content
+          },
         }}
       >
         <div className={classes.drawerHeader}>
-        <ListItemText><b>{pageTitle}</b></ListItemText>
+          <ListItemText>
+            <b style={{ color: "#000", width: "100%", display: "block" }}>
+              {pageTitle}
+            </b>
+          </ListItemText>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "ltr" ? (
-              <ChevronLeftIcon style={{ color: "#fff" }} />
+              <ChevronLeftIcon style={{ color: "#000" }} />
             ) : (
-              <ChevronRightIcon />
+              <ChevronRightIcon style={{ color: "#000" }} />
             )}
           </IconButton>
         </div>
+
         <List>
-          <Link to="/" style={{ textDecoration: "none", color: "#fff" }}>
+          <Link to="/" style={{ textDecoration: "none", color: "#000" }}>
             <ListItem>
-              <ListItemText>Home</ListItemText>
+              <ListItemText primary="Home" style={{ textAlign: "center" }} />
             </ListItem>
           </Link>
           <Link
             to="/explorer"
-            style={{ textDecoration: "none", color: "#fff" }}
+            style={{ textDecoration: "none", color: "#000" }}
           >
             <ListItem>
-              <ListItemText>Explorer</ListItemText>
+              <ListItemText
+                primary="Explorer"
+                style={{ textAlign: "center" }}
+              />
             </ListItem>
           </Link>
         </List>
-        <List>
-          {navItems.length !== 0 ? (
-            navItems.map((item) => (
+
+        {navItems.length !== 0 && (
+          <List>
+            {navItems.map((item) => (
               <Link
                 to={item[1]}
-                style={{ textDecoration: "none", color: "#fff" }}
+                key={item[0]}
+                style={{ textDecoration: "none", color: "#000" }}
               >
-                <ListItem button key={item[0]}>
-                  <ListItemText primary={item[0]} />
+                <ListItem button>
+                  <ListItemText
+                    primary={item[0]}
+                    style={{ textAlign: "center" }}
+                  />
                 </ListItem>
               </Link>
-            ))
-          ) : (
-            <> </>
-          )}
-        </List>
+            ))}
+          </List>
+        )}
+
         <div
-          style={{ height: "100%", display: "flex", alignItems: "flex-end" }}
+          style={{
+            height: "100%",
+            display: "flex",
+            alignItems: "flex-end",
+            justifyContent: "center",
+          }}
         >
           <div
             style={{
               width: "100%",
               height: "70px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
               fontWeight: 500,
               fontSize: 17,
-              borderTop: "1px solid #44a",
+              borderTop: "1px solid #aaa",
+              color: "#000", // 🔲 Black text
+              textAlign: "center",
             }}
           >
-            By Team Akatsuki &nbsp;&nbsp;
+            By Team Akatsuki&nbsp;&nbsp;
             <a
-              style={{ textDecoration: "none" }}
               href="https://github.com/rishav4101/eth-supplychain-dapp"
+              style={{ color: "#000", textDecoration: "none" }} // 🔲 Black icon
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <GitHubIcon style={{ color: "#fff" }} />
+              <GitHubIcon style={{ marginTop: 10 }} />
             </a>
           </div>
         </div>
       </Drawer>
+
       <main
         className={clsx(classes.content, {
           [classes.contentShift]: open,
