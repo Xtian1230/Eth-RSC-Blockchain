@@ -14,4 +14,4 @@ Installation and Setup
 Prerequisites : npm, git, docker(optional)
 
 Clone the repository
-```https://github.com/Xtian1230/Eth-RSC-Blockchain.git
+```https://github.com/Xtian1230/Eth-RSC-Blockchain.git```
